@@ -95,7 +95,7 @@ export default {
       routes: [
         {
           path: '/',
-          redirect: '/dashboard/analysis',
+          redirect: 'dashboard',
         },
         // {
         //   path: '/welcome',
@@ -105,25 +105,36 @@ export default {
         // },
 
         
-        // {
-        //   path: '/dashboard',
-        //   name: 'dashboard',
-        //   icon: 'dashboard',
-        //   routes: [
-        //     {
-        //       name: 'analysis',
-        //       icon: 'smile',
-        //       path: '/dashboard/analysis',
-        //       component: './dashboard/analysis',
-        //     },
-        //     {
-        //       name: 'monitor',
-        //       icon: 'smile',
-        //       path: '/dashboard/monitor',
-        //       component: './dashboard/monitor',
-        //     },
-        //   ],
-        // },
+        {
+          path: '/dashboard',
+          name: 'dashboard',
+          icon: 'dashboard',
+          component: './Dashboard',
+          // routes: [
+          //   {
+          //     name: "classroom",
+          //     path: '/dashboard/classroom',
+          //     component: './dashboard/classroom'
+          //   }
+          //   // {
+          //   //   name: 'analysis',
+          //   //   icon: 'smile',
+          //   //   path: '/dashboard',
+          //   //   component: './dashboard',
+          //   // },
+          //   // {
+          //   //   name: 'monitor',
+          //   //   icon: 'smile',
+          //   //   path: '/dashboard',
+          //   //   component: './dashboard',
+          //   // },
+          // ],
+        },
+
+        {
+          path: '/classroom',
+          component: './Classroom',
+        },
 
 
 

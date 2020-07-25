@@ -1,19 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { StackedArea } from '@ant-design/charts';
+import { LossFocusCountData } from './Data/LossFocusCountData';
 
-const PlotLossFocusCount = () => {
-  const [data, setData] = useState([]);
-  useEffect(() => {
-    asyncFetch();
-  }, []);
-  const asyncFetch = () => {
-    fetch('https://gw.alipayobjects.com/os/antfincdn/A%26Bp9uKRb2/oil.json')
-      .then(response => response.json())
-      .then(json => setData(json))
-      .catch(error => {
-        console.log('fetch data failed', error);
-      });
-  };
+const PlotLossFocusCount = (props) => {
+  const data = props.data
+
   const config = {
     title: {
       visible: true,
@@ -26,12 +17,12 @@ const PlotLossFocusCount = () => {
     data,
     xField: 'date',
     yField: 'value',
-    stackField: 'country',
-    color: ['#6897a7', '#8bc0d6', '#60d7a7', '#dedede', '#fedca9', '#fab36f', '#d96d6f'],
-    xAxis: {
-      type: 'dateTime',
-      tickCount: 5,
-    },
+    stackField: 'student',
+    color: ['#F49097', '#DFB2F4', '#F5E960', '#F2F5FF', '#55D6C2'],
+    // xAxis: {
+    //   type: 'date',
+    //   tickCount: 5,
+    // },
     label: {
       visible: true,
       type: 'line',

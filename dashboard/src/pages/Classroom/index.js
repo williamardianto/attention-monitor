@@ -1,3 +1,5 @@
+import React, { useState } from 'react';
+
 import PlotYPR from './PlotYawPitchRoll';
 import PlotBlink from './PlotBlink';
 import PlotFaceNotPresent from './PlotFaceNotPresent';
@@ -5,19 +7,42 @@ import PlotLossFocusCount from './PlotLossFocusCount';
 import PlotLossFocusDuration from './PlotLossFocusDuration';
 import PlotYawn from './PlotYawn';
 
+import { LossFocusCountData } from './Data/LossFocusCountData';
+
 import { Card, Row, Col, Input, Button, Select } from 'antd';
 
 const { Option } = Select;
 
-function handleChange(value) {
-  console.log(`selected ${value}`);
+// function handleChange(value) {
+//   console.log(`selected ${value}`);
+// }
+
+function fetchData(student) {
+  if (student === 'All') {
+    const data = LossFocusCountData['Lucy'].concat(
+      LossFocusCountData['Jack'],
+      LossFocusCountData['Bob'],
+    );
+
+    return data;
+  } else {
+    const data = LossFocusCountData[student];
+    return data;
+  }
 }
 
 function Classroom() {
+  const [student, setStudent] = useState('All');
+
+  const data = fetchData(student)
+
+  // console.log('inside if');
+  console.log(data);
+
   return (
     <div className="classroom">
       <Card title="Students" style={{ marginBottom: '20px' }}>
-        <Select defaultValue="All" style={{ width: 200 }} onChange={handleChange}>
+        <Select defaultValue="All" style={{ width: 200 }} onChange={value => setStudent(value)}>
           <Option value="All">All</Option>
           <Option value="Jack">Jack</Option>
           <Option value="Bob">Bob</Option>
@@ -27,9 +52,7 @@ function Classroom() {
 
       <Card title="Loss Focus">
         <Row gutter={[16, 16]}>
-          <Col span={12}>
-            <PlotLossFocusCount />
-          </Col>
+          <Col span={12}><PlotLossFocusCount data={data} /></Col>
           <Col span={12}>
             <PlotLossFocusDuration />
           </Col>

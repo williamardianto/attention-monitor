@@ -1,35 +1,22 @@
 import { Line } from '@ant-design/charts';
 
-const PlotYPR = () => {
-  const data = [
-    { year: '1991', value: 3 },
-    { year: '1992', value: 4 },
-    { year: '1993', value: 3.5 },
-    { year: '1994', value: 5 },
-    { year: '1995', value: 4.9 },
-    { year: '1996', value: 6 },
-    { year: '1997', value: 7 },
-    { year: '1998', value: 9 },
-    { year: '1999', value: 13 },
-  ];
+const PlotYPR = (props) => {
+  const data = props.data
   const config = {
     data,
     title: {
       visible: true,
-      text: '',
+      text: 'Yaw Pitch Roll',
     },
-    xField: 'year',
-    yField: 'value',
-    point: {
+    description: {
       visible: true,
-      size: 5,
-      shape: 'diamond',
-      style: {
-        fill: 'white',
-        stroke: '#2593fc',
-        lineWidth: 2,
-      },
+      text: 'Change of Yaw, Pitch and Roll over time',
     },
+    xField: 'date',
+    yField: 'value',
+    legend: { position: 'right-top' },
+    seriesField: 'type',
+    color: ['#1979C9', '#D62A0D', '#FAA219'],
   };
   return <Line {...config} />;
 };

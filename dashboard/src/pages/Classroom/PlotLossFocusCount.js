@@ -8,7 +8,7 @@ const PlotLossFocusCount = (props) => {
   const config = {
     title: {
       visible: true,
-      text: 'Loss Focus Count',
+      text: 'Blink Count',
     },
     description: {
       visible: true,

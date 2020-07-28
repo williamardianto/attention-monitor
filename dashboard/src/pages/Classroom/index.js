@@ -14,7 +14,12 @@ import { LossFocusCountData } from './Data/LossFocusCountData';
 import { YPRData } from './Data/YPRData';
 import { YawnData } from './Data/YawnData';
 
-import { Card, Row, Col, Typography, Space, Select } from 'antd';
+import ReportTable from './ReportTable';
+import LostAttentionTable from './LostAttentionTable';
+import TirednessTable from './TirednessTable';
+
+import { Card, Row, Col, Typography, Button, Select } from 'antd';
+import { PoweroffOutlined } from '@ant-design/icons';
 
 const { Option } = Select;
 const { Text, Link } = Typography;
@@ -56,67 +61,112 @@ function Classroom() {
   return (
     <div className="classroom">
       <Card title="Students" style={{ marginBottom: '20px' }}>
-        <Select defaultValue="All" style={{ width: 200 }} onChange={value => setStudent(value)}>
-          <Option value="All">All</Option>
-          <Option value="Jack">Jack</Option>
-          <Option value="Bob">Bob</Option>
-          <Option value="Lucy">Lucy</Option>
-        </Select>
-      </Card>
-
-      <Card title="Session Duration">
-        <Row gutter={[16, 16]}>
-          <h1 style={{ fontSize: '40px', marginLeft: '10px' }}>60 Minutes</h1>
-        </Row>
-      </Card>
-
-      <Card title="Attention Analysis">
-        <Row gutter={[16, 16]}>
-          <Col span={24}>
-            <AttentionSummary />
-          </Col>
-        </Row>
-      </Card>
-
-      <Card>
         <Row gutter={[16, 16]}>
           <Col span={12}>
-            <TotalAndAverageAttention />
+            <Select defaultValue="All" style={{ width: 200 }} onChange={value => setStudent(value)}>
+              <Option value="All">All</Option>
+              <Option value="Jack">Jack</Option>
+              <Option value="Bob">Bob</Option>
+              <Option value="Lucy">Lucy</Option>
+            </Select>
           </Col>
-          <Col span={12}>
-            <FacePresentDuration />
-          </Col>
-        </Row>
-      </Card>
-
-      {/* <Card title="Loss Focus">
-        <Row gutter={[16, 16]}>
-          <Col span={12}>
-            <PlotLossFocusCount data={data['lossFocusCount']} />
-          </Col>
-          <Col span={12}>
-            <PlotLossFocusDuration />
-          </Col>
-        </Row>
-      </Card> */}
-
-      <Card title="Tiredness Metrics">
-        <Row gutter={[16, 16]}>
-          <Col span={12}>
-            <PlotLossFocusCount data={data['lossFocusCount']} />
-          </Col>
-          <Col span={12}>
-            <PlotYawnCount data={data['yawn']} />
+          <Col style={{ textAlign: 'right' }} span={12}>
+            <Button type="primary" icon={<PoweroffOutlined />} size={'large'}>
+              Export as PDF
+            </Button>
           </Col>
         </Row>
       </Card>
 
       {student != 'All' ? (
-        <Card title="Face Yaw Pitch Roll">
-          <PlotYPR data={data['ypr']} />
-        </Card>
+        <div>
+          <Card>
+            <Row gutter={[16, 16]}>
+              <Col span={6}>
+                <p>Class ID</p>
+                <h1 style={{ fontSize: '40px', marginLeft: '10px' }}>101000</h1>
+              </Col>
+              <Col span={6}>
+                <p>Session ID</p>
+                <h1 style={{ fontSize: '40px', marginLeft: '10px' }}>001</h1>
+              </Col>
+              <Col span={6}>
+                <p>Session Duration</p>
+                <h1 style={{ fontSize: '40px', marginLeft: '10px' }}>60 Min</h1>
+              </Col>
+              <Col span={6}>
+                <p>Num of Participant</p>
+                <h1 style={{ fontSize: '40px', marginLeft: '10px' }}>{student}</h1>
+              </Col>
+            </Row>
+          </Card>
+
+          <Card title="General Statistic" style={{ marginTop: '10px' }}>
+            <ReportTable />
+          </Card>
+          <Card title="Lost Attention Indicators" style={{ marginTop: '10px' }}>
+            <LostAttentionTable />
+          </Card>
+          <Card title="Tiredness/drowsiness Indicators" style={{ marginTop: '10px' }}>
+            <TirednessTable />
+          </Card>
+          {/* <Card title="Stress Indicators Indicators" style={{ marginTop: '10px' }}>
+            <ReportTable />
+          </Card> */}
+        </div>
       ) : (
-        <Card title=""></Card>
+        <div>
+          <Card>
+            <Row gutter={[16, 16]}>
+              <Col span={6}>
+                <p>Class ID</p>
+                <h1 style={{ fontSize: '40px', marginLeft: '10px' }}>101000</h1>
+              </Col>
+              <Col span={6}>
+                <p>Session ID</p>
+                <h1 style={{ fontSize: '40px', marginLeft: '10px' }}>001</h1>
+              </Col>
+              <Col span={6}>
+                <p>Session Duration</p>
+                <h1 style={{ fontSize: '40px', marginLeft: '10px' }}>60 Min</h1>
+              </Col>
+              <Col span={6}>
+                <p>Num of Participant</p>
+                <h1 style={{ fontSize: '40px', marginLeft: '10px' }}>3</h1>
+              </Col>
+            </Row>
+          </Card>
+
+          <Card title="Attention Analysis">
+            <Row gutter={[16, 16]}>
+              <Col span={24}>
+                <AttentionSummary />
+              </Col>
+            </Row>
+          </Card>
+
+          <Card>
+            <Row gutter={[16, 16]}>
+              <Col span={12}>
+                <TotalAndAverageAttention />
+              </Col>
+              <Col span={12}>
+                <FacePresentDuration />
+              </Col>
+            </Row>
+          </Card>
+
+          <Card title="Tiredness Indicator">
+            <Row gutter={[16, 16]}>
+              <Col span={12}>
+                <PlotLossFocusCount data={data['lossFocusCount']} />
+              </Col>
+              <Col span={12}>
+                <PlotYawnCount data={data['yawn']} />
+              </Col>
+            </Row>
+          </Card>
+        </div>
       )}
     </div>
   );
